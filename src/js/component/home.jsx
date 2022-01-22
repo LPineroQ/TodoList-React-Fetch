@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { Button, Form } from "react-bootstrap";
+import TodoList from "./todoList.jsx";
 
 //create your first component
 const Home = () => {
@@ -15,6 +16,9 @@ const Home = () => {
 		setListTodo([...listTodo, newTodo]);
 	};
 
+	const deleteTodo = (id) => {
+		console.log("todo id es:", id);
+	};
 	console.log({ listTodo });
 
 	return (
@@ -32,6 +36,17 @@ const Home = () => {
 					Click
 				</Button>
 			</Form>
+			{listTodo.length === 0
+				? "Esto está más vacío que la sede de Ciudadanos"
+				: null}
+			{listTodo.map((todo, index) => (
+				<TodoList
+					key={index}
+					id={index}
+					deleteTodo={deleteTodo}
+					todo={todo}
+				/>
+			))}
 		</div>
 	);
 };
