@@ -9,15 +9,33 @@ const Home = () => {
 
 	console.log({ newTodo });
 
+
 	const handleClick = () => {
 		console.log("Click");
 		/*
 		const newListTodo = [...listTodo, newTodo]; */
 		setListTodo([...listTodo, newTodo]);
+		fetch("https://assets.breatheco.de/apis/fake/todos/user/GuillermoSR",{
+		method:"PUT"
+		})
+		.then(response => { response.json()})
+		.then(data => {setNewTodo(newTodo)
+		console.log(data)})
 	};
 
 	const deleteTodo = (id) => {
-		console.log("todo id es:", id);
+		const deleteArray = [...listTodo];
+		deleteArray.splice(id, 1);
+		newTodo(deleteArray)
+			.then((res) => {
+				return res.json();
+			})
+			.then((data) => {
+				setListTodo(data);
+			})
+			.catch((err) => {
+				console.log(err);
+			});
 	};
 	console.log({ listTodo });
 
@@ -33,19 +51,19 @@ const Home = () => {
 					/>
 				</Form.Group>
 				<Button variant="primary" type="button" onClick={handleClick}>
-					Click
+					Añadir
 				</Button>
 			</Form>
 			{listTodo.length === 0
 				? "Esto está más vacío que la sede de Ciudadanos"
 				: null}
 			{listTodo.map((todo, index) => (
-				<TodoList
+				<TodoList>
 					key={index}
 					id={index}
 					deleteTodo={deleteTodo}
 					todo={todo}
-				/>
+				</TodoList>
 			))}
 		</div>
 	);
