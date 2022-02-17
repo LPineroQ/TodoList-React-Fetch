@@ -9,18 +9,21 @@ const Home = () => {
 
 	console.log({ newTodo });
 
-
 	const handleClick = () => {
 		console.log("Click");
 		/*
 		const newListTodo = [...listTodo, newTodo]; */
 		setListTodo([...listTodo, newTodo]);
-		fetch("https://assets.breatheco.de/apis/fake/todos/user/GuillermoSR",{
-		method:"PUT"
+		fetch("https://assets.breatheco.de/apis/fake/todos/user/GuillermoSR", {
+			method: "PUT",
 		})
-		.then(response => { response.json()})
-		.then(data => {setNewTodo(newTodo)
-		console.log(data)})
+			.then((response) => {
+				response.json();
+			})
+			.then((data) => {
+				setNewTodo(newTodo);
+				console.log(data);
+			});
 	};
 
 	const deleteTodo = (id) => {
